@@ -14,7 +14,7 @@ class MessageController extends AbstractController
     {
     }
 
-    #[Route('/message/email', name: 'app_message', methods: ["POST"])]
+    #[Route('/send-message/email', name: 'app_message', methods: ["POST"])]
     public function email(Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
