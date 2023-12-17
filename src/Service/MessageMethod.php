@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Service;
 
 use App\Services\Strategy\EmailStrategy;
 
@@ -8,7 +8,6 @@ class MessageMethod
 {
     private static array $strategies = [
         "email" => EmailStrategy::class,
-        // Adicione outras estratégias conforme necessário
     ];
 
     public static function get(string $method): MessageStrategy
