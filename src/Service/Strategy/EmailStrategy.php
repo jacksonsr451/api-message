@@ -2,7 +2,7 @@
 
 namespace App\Services\Strategy;
 
-use App\Services\MessageStrategy;
+use App\Service\MessageStrategy;
 
 class EmailStrategy implements MessageStrategy
 {
