@@ -6,6 +6,7 @@ use App\Service\MessageServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class MessageController extends AbstractController
@@ -19,12 +20,19 @@ class MessageController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
 
-        return $this->json([
-            'message' => $this->service->sendEmail(
+        try {
+            $this->service->sendEmail(
                 to: $data['to'],
                 subject: $data['subject'],
                 body: $data['body']
-            ),
-        ]);
+            );
+            return $this->json([
+                'message' => "Mensagem enviada com sucesso!",
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return $this->json([
+                'message' => "Erro ao enviar mensagem: " . $th->getMessage(),
+            ], Response::HTTP_BAD_REQUEST);
+        }
     }
 }
