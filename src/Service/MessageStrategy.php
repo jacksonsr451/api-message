@@ -8,5 +8,5 @@ interface MessageStrategy
         string $to,
         string $body,
         string $subject = null,
-    ): string;
+    ): void;
 }

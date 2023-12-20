@@ -2,21 +2,34 @@
 
 namespace App\Service;
 
-use App\Services\Strategy\EmailStrategy;
+use App\Service\Strategy\EmailStrategy;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class MessageMethod
 {
-    private static array $strategies = [
+    private array $strategies = [
         "email" => EmailStrategy::class,
     ];
 
-    public static function get(string $method): MessageStrategy
+    private ContainerInterface $container;
+
+    public function __construct(ContainerInterface $container)
     {
-        if (!array_key_exists($method, self::$strategies)) {
+        $this->container = $container;
+    }
+
+    public function get(string $method): MessageStrategy
+    {
+        if (!array_key_exists($method, $this->strategies)) {
             throw new \InvalidArgumentException("Método de mensagem inválido: {$method}");
         }
 
-        $strategyClass = self::$strategies[$method];
-        return new $strategyClass();
+        $serviceId = $this->strategies[$method];
+
+        if (!$this->container->has($serviceId)) {
+            throw new \InvalidArgumentException("Classe de estratégia inválida: {$serviceId}");
+        }
+
+        return $this->container->get($serviceId);
     }
 }

@@ -4,8 +4,11 @@ namespace App\Service;
 
 class MessageService implements MessageServiceInterface
 {
-    public function __construct(private readonly MessageMethod $method)
+    private readonly MessageMethod $method;
+
+    public function __construct(MessageMethod $method)
     {
+        $this->method = $method;
     }
 
     public function sendEmail(string $to, string $subject, string $body)
