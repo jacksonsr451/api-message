@@ -15,10 +15,11 @@ class EmailStrategy implements MessageStrategy
     }
 
     public function send(
+        string $from,
         string $to,
         string $body,
         string $subject = null,
     ): void {
-        $this->email->send(to: $to, subject: $subject, body: $body);
+        $this->email->send(from: $from, to: $to, subject: $subject, body: $body);
     }
 }

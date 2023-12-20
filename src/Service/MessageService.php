@@ -11,8 +11,8 @@ class MessageService implements MessageServiceInterface
         $this->method = $method;
     }
 
-    public function sendEmail(string $to, string $subject, string $body)
+    public function sendEmail(string $from, string $to, string $subject, string $body)
     {
-        return $this->method->get("email")->send(to: $to, subject: $subject, body: $body);
+        return $this->method->get("email")->send(from: $from, to: $to, subject: $subject, body: $body);
     }
 }

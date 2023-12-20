@@ -16,10 +16,10 @@ class SendEmail implements SendEmailInterface
         $this->mailer = $mailer;
     }
 
-    public function send(string $to, string $subject, string $body): void
+    public function send(string $from, string $to, string $subject, string $body): void
     {
         $message = (new Email())
-            ->from($_ENV["MAILER_USER"])
+            ->from($from)
             ->to($to)
             ->subject($subject)
             ->html($body);

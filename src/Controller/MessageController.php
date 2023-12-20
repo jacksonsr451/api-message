@@ -22,6 +22,7 @@ class MessageController extends AbstractController
 
         try {
             $this->service->sendEmail(
+                from: $data['from'] ?? $_ENV["MAILER_USER"],
                 to: $data['to'],
                 subject: $data['subject'],
                 body: $data['body']
